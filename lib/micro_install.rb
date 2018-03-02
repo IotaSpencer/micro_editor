@@ -84,10 +84,12 @@ module MicroInstall
           end
         end
       }
+      print "\n"
     end
     
     def extract_micro(hl = @hl)
       begin
+        hl.say Paint["Extracting micro-#{@tag}-#{@arch}.tar.gz", 'yellow']
         micro_tar = Gem::Package::TarReader.new(Zlib::GzipReader.open("micro-#{@tag}-#{@arch}.tar.gz"))
         micro_tar.rewind
         dest = nil
@@ -95,13 +97,13 @@ module MicroInstall
           dest ||= Pathname(Dir.home).realdirpath.join(entry.full_name).to_path
           if entry.directory?
             File.delete dest if File.file? dest
-            FileUtils.mkdir_p dest, :mode => entry.header.mode, :verbose => false
+            FileUtils::Verbose.mkdir_p dest, :mode => entry.header.mode
           elsif entry.file?
-            FileUtils.rm_rf dest if File.directory? dest
+            FileUtils::Verbose.rm_rf dest if File.directory? dest
             File.open dest, "wb" do |f|
               f.print entry.read
             end
-            FileUtils.chmod entry.header.mode, dest, :verbose => false
+            FileUtils::Verbose.chmod entry.header.mode, dest
           elsif entry.header.typeflag == '2' #Symlink!
             File.symlink entry.header.linkname, dest
           end
