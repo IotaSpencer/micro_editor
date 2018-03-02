@@ -59,11 +59,12 @@ module MicroInstall
         else
           raise self.LookupError 'unable to determine your system'
       end
+      
     end
     
-    def download_url
+    def download_url(hl = @hl)
       @download_url = "https://github.com/zyedidia/micro/releases/download/v#{@tag}/micro-#{@tag}-#{@arch}.tar.gz"
-    
+      hl.say("#{Paint['URL', 'yellow']}: #{@download_url}")
     end
     
     def download_micro_tar(hl = @hl)
