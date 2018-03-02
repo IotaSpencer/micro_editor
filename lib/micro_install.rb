@@ -121,7 +121,7 @@ module MicroInstall
       end
       
       begin
-        FileUtils.remove("micro-#{@tag}-#{platform}.tar.gz")
+        FileUtils.remove("micro-#{@tag}-#{@arch}.tar.gz")
       rescue Errno::ENOENT => e
         hl.say "#{Paint['Error', 'red']}: #{e}"
       end
