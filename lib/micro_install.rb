@@ -129,19 +129,17 @@ module MicroInstall
           hl.say "#{Paint['Error', 'red']}: #{e}"
         end
       end
-      
       begin
         FileUtils.cp(Pathname(Dir.home).join("micro-#{@tag}/micro"), Pathname(Dir.home).join('.local/bin/'))
+        hl.say Paint["Installed 'micro' to ~/.local/bin/"]
       rescue Errno::ENOENT => e
         hl.say "#{Paint['Error', 'red']}: #{e}"
       end
-      
       begin
         FileUtils.rm("micro-#{@tag}-#{@arch}.tar.gz")
       rescue Errno::ENOENT => e
         hl.say "#{Paint['Error', 'red']}: #{e}"
       end
-      
       begin
         FileUtils.rm_r(Pathname(Dir.home).join("micro-#{@tag}"), :secure => true)
       rescue Errno::ENOENT => e

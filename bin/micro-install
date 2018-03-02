@@ -27,6 +27,12 @@ installer.extract_micro
 installer.install_micro
 
 puts <<-EOM
-Micro has been downloaded to the current directory. You can run it with:
-./micro
+Micro has been installed to your ~/.local/bin/ directory. You can run it with:
+'micro'
 EOM
+
+path_env = ENV['PATH'].split(':').each do |path|
+  path_env.delete path
+  path_env << Pathname(path)
+end
+puts path_env
