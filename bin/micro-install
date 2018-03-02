@@ -22,6 +22,9 @@ installer = MicroInstall::Installer.new
 installer.latesttag
 installer.get_arch
 installer.download_url
+installer.download_micro_tar
+installer.extract_micro
+installer.install_micro
 
 puts <<-EOM
 Micro has been downloaded to the current directory. You can run it with:
