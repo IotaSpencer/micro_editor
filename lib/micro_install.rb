@@ -15,10 +15,7 @@ module MicroInstall
     end
     
     def latesttag(hl = @hl)
-      hl.say <<-SAY
-      <% Paint.[]("Getting Latest Tag") %>
-      
-      SAY
+      hl.say "#{Paint["Getting Latest Tag", 'green']}"
       MicroInstall.show_wait_spinner {
         body = Unirest.get('https://api.github.com/repos/zyedidia/micro/releases/latest').body
         @tag = body['tag_name'].gsub(/^v/, '')
