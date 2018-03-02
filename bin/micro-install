@@ -1,0 +1,34 @@
+#!/usr/bin/env ruby
+require 'unirest'
+require 'os'
+require 'rubygems/package'
+require 'open-uri'
+require 'zlib'
+require 'micro_install'
+# This script installs micro.
+#
+# This script will install micro to your user bin directory ~/.local/bin
+# (I don't use ''~/bin' because it muddies up 'ls')
+#
+# Found a bug? Report it here: https://github.com/IotaSpencer/micro-install
+#
+# Acknowledgments:
+#   - https://getmic.ro: https://github.com/benweissmann/
+#   - Micro, of course: https://micro-editor.github.io/
+#   - Loosely based on the Chef curl|bash: https://docs.chef.io/install_omnibus.html
+#   - ASCII art courtesy of figlet: http://www.figlet.org/
+
+installer = MicroInstall::Installer.new
+installer.latesttag
+installer.get_arch
+
+
+
+
+
+
+
+puts <<-EOM
+    Micro has been downloaded to the current directory. You can run it with:
+    ./micro
+EOM
