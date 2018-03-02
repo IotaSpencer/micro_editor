@@ -102,7 +102,7 @@ module MicroInstall
     
     def install_micro(hl = @hl)
       hl.say "#{Paint['Checking if ~/.local/bin exists.', 'yellow']}"
-      if Dir.exist? Pathname(Dir.home).join('.local/bin').realdirpath
+      if Dir.exist? Pathname(Dir.home).join('.local/bin')
         hl.say "'~/.local/bin' exists."
       else
         hl.say "'~/.local/bin' doesn't exist, creating."
