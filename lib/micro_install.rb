@@ -58,7 +58,7 @@ module MicroInstall
         else
           raise self.LookupError 'unable to determine your system'
       end
-      
+    
     end
     
     def download_url(hl = @hl)
@@ -101,11 +101,36 @@ module MicroInstall
     end
     
     def install_micro(hl = @hl)
-      FileUtils.mkdir_p(Pathname(Dir.home).join('.local/bin/'))
+      hl.say "#{Paint['Checking if ~/.local/bin exists.', 'yellow']}"
+      if Dir.exist? Pathname(Dir.home).join('.local/bin').realdirpath
+        hl.say "'~/.local/bin' exists."
+      else
+        hl.say "'~/.local/bin' doesn't exist, creating."
+        begin
+          FileUtils.mkdir_p(Pathname(Dir.home).join('.local/bin'))
+          hl.say "created '~/.local/bin'"
+        rescue Errno::ENOENT => e
+          hl.say "#{Paint['Error', 'red']}: #{e}"
+        end
+      end
       
-      FileUtils.cp(Pathname(Dir.home).join("micro-#{@tag}/micro"), Pathname(Dir.home).join('.local/bin/'))
-      FileUtils.remove("micro-#{@tag}-#{platform}.tar.gz")
-      FileUtils.rmtree("micro-#{@tag}")
+      begin
+        FileUtils.cp(Pathname(Dir.home).join("micro-#{@tag}/micro"), Pathname(Dir.home).join('.local/bin/'))
+      rescue Errno::ENOENT => e
+        hl.say "#{Paint['Error', 'red']}: #{e}"
+      end
+      
+      begin
+        FileUtils.remove("micro-#{@tag}-#{platform}.tar.gz")
+      rescue Errno::ENOENT => e
+        hl.say "#{Paint['Error', 'red']}: #{e}"
+      end
+      
+      begin
+        FileUtils.rmtree("micro-#{@tag}")
+      rescue Errno::ENOENT => e
+        hl.say "#{Paint['Error', 'red']}: #{e}"
+      end
     end
   end
 end
