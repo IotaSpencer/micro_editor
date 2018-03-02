@@ -29,6 +29,6 @@ installer.get_arch
 
 
 puts <<-EOM
-    Micro has been downloaded to the current directory. You can run it with:
-    ./micro
+Micro has been downloaded to the current directory. You can run it with:
+./micro
 EOM
