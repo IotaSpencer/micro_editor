@@ -10,7 +10,7 @@ module MicroInstall
   
   class Installer
     
-    def initialize(hl = HighLine.new($stdin, $stdout, 60))
+    def initialize(hl = HighLine.new($stdin, $stdout))
       @hl = hl
     end
     
