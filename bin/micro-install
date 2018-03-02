@@ -34,7 +34,7 @@ paths = []
 path_env = ENV['PATH'].split(':').each do |path|
   paths << path if path.include? 'bin'
 end
-if paths.include? Pathname(Dir.home).join('.local/bin')
+if paths.include? Pathname(Dir.home).join('.local/bin').to_path
   hl.say "Environment Variable 'PATH' already includes #{Dir.home}/.local/bin"
   hl.say Paint["You're all set!", 'green']
 else
