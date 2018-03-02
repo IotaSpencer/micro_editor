@@ -24,7 +24,7 @@ module MicroInstall
         @tag = body['tag_name'].gsub(/^v/, '')
       }
       hl.say <<-SAY
-      <% Paint['Latest Tag', 'green'] %>: <% Paint[@tag, 'yellow']
+      <% Paint['Latest Tag', 'green'] %>: <% Paint[@tag, 'yellow'] %>
       
       SAY
     end
