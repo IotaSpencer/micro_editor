@@ -52,6 +52,7 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency 'paint', '~> 2.0.1'
   spec.add_runtime_dependency 'unirest', '~> 1.1'
   spec.add_development_dependency 'bundler', '~> 1.16'
+  spec.add_development_dependency 'pry', '~> 0.11'
 
   spec.post_install_message = <<-POSTINSTALL
   Thanks for installing micro_install!
