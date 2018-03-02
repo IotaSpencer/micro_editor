@@ -20,6 +20,7 @@ module MicroInstall
         body = Unirest.get('https://api.github.com/repos/zyedidia/micro/releases/latest').body
         @tag = body['tag_name'].gsub(/^v/, '')
       }
+      puts
       hl.say "#{Paint['Latest Tag', 'green']}: #{Paint[@tag, 'yellow']}"
     end
     
