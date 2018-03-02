@@ -1,8 +1,7 @@
 module MicroInstall
   module_function
-  
   def show_wait_spinner(fps = 10)
-    chars   = %w[| / -- \\]
+    chars   = %w[| / - \\]
     delay   = 1.0 / fps
     iter    = 0
     spinner = Thread.new do
@@ -17,5 +16,4 @@ module MicroInstall
       spinner.join # …and wait for it to do so.
     } # Use the block's return value as the method's
   end
-
 end
