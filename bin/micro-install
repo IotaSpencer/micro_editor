@@ -17,7 +17,7 @@ require 'micro_install'
 #   - Micro, of course: https://micro-editor.github.io/
 #   - Loosely based on the Chef curl|bash: https://docs.chef.io/install_omnibus.html
 #   - ASCII art courtesy of figlet: http://www.figlet.org/
-
+hl = HighLine.new($stdin, $stderr)
 installer = MicroInstall::Installer.new
 installer.latesttag
 installer.get_arch
@@ -30,9 +30,14 @@ puts <<-EOM
 Micro has been installed to your ~/.local/bin/ directory. You can run it with:
 'micro'
 EOM
-
+paths = []
 path_env = ENV['PATH'].split(':').each do |path|
-  path_env.delete path
-  path_env << Pathname(path)
+  paths << path if path.include? 'bin'
 end
-puts path_env
+if paths.include? Pathname(Dir.home).join('.local/bin')
+  hl.say "Environment Variable 'PATH' already includes #{Dir.home}/.local/bin"
+  hl.say Paint["You're all set!", 'green']
+else
+  hl.say "#{Paint['Warning', 'orange']}: #{Dir.home}/.local/bin is not in $PATH,"
+  hl.say "Either add '#{Dir.home}/.local/bin' to the PATH variable, or give the full path to the executable"
+end
