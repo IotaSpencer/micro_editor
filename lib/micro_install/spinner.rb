@@ -11,6 +11,7 @@ module MicroInstall
         print "\b"
       end
     end
+    print "\b"
     yield.tap {# After yielding to the block, save the return value
       iter = false # Tell the thread to exit, cleaning up after itself…
       spinner.join # …and wait for it to do so.
