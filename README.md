@@ -11,5 +11,5 @@ A ported version of https://getmic.ro to ruby to install [micro](https://zyedidi
 
 This script is bundled within [mkmatter](https://github.com/IotaSpencer/mkmatter) to provide a consistent approach to editing with mkmatter.
 
-Thanks to [@zyedidia](https://github.com/zyedidia) for allowing me to bundle micro.
-And thanks to [@benweissmann](https://github.com/benweissmann) for making [the original installation script](https://github.com/benweissmann/getmic.ro) which this is ported from bash to ruby.
+Thanks to @zyedidia for allowing me to bundle micro.
+And thanks to @benweissmann for making [the original installation script](https://github.com/benweissmann/getmic.ro) which this is ported from bash to ruby.
