@@ -17,7 +17,7 @@ require 'micro_install'
 #   - Micro, of course: https://micro-editor.github.io/
 #   - Loosely based on the Chef curl|bash: https://docs.chef.io/install_omnibus.html
 #   - ASCII art courtesy of figlet: http://www.figlet.org/
-hl = HighLine.new($stdin, $stderr)
+hl        = HighLine.new($stdin, $stderr)
 installer = MicroInstall::Installer.new
 installer.latesttag
 installer.get_arch
@@ -26,18 +26,17 @@ installer.download_micro_tar
 installer.extract_micro
 installer.install_micro
 
-puts <<-EOM
-Micro has been installed to your ~/.local/bin/ directory. You can run it with:
-'micro'
-EOM
-paths = []
+paths    = []
 path_env = ENV['PATH'].split(':').each do |path|
   paths << path if path.include? 'bin'
 end
 if paths.include? Pathname(Dir.home).join('.local/bin').to_path
   hl.say "Environment Variable 'PATH' already includes #{Dir.home}/.local/bin"
   hl.say Paint["You're all set!", 'green']
+  installer.is_installed
 else
   hl.say "#{Paint['Warning', 'orange']}: #{Dir.home}/.local/bin is not in $PATH,"
-  hl.say "Either add '#{Dir.home}/.local/bin' to the PATH variable, or give the full path to the executable"
+  installer.is_installed_but_no_bin
 end
+
+

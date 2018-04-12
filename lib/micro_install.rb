@@ -39,7 +39,7 @@ module MicroInstall
               @arch = 'linux32'
             end
           when "linux-arm"
-            raise self.LookupError 'ARM (mobile devices) are not supported'
+            raise self.LookupError.new 'ARM (mobile devices) are not supported'
           when "darwin"
             @arch = 'osx'
           when "freebsd"
@@ -61,7 +61,7 @@ module MicroInstall
               @arch = 'netbsd32'
             end
           else
-            raise self.LookupError 'unable to determine your system'
+            raise self.LookupError.new 'unable to determine your system'
         end
       rescue MicroInstall::LookupError => e
         hl.say "#{Paint['Error', 'red']}: #{e}"
@@ -145,6 +145,19 @@ module MicroInstall
       rescue Errno::ENOENT => e
         hl.say "#{Paint['Error', 'red']}: #{e}"
       end
+    end
+    def is_installed(hl = @hl)
+      hl.say [
+                 "Micro has been installed to your ~/.local/bin/ directory. You can run it with:",
+                 "'micro'"
+             ].join
+    end
+    def is_installed_but_no_bin(hl = @hl)
+      hl.say [
+          "Micro is installed to ~/.local/bin/, but can't run,",
+          "Please check your ~/.bashrc and/or ~/.profile and see",
+          "if '~/.local/bin/' is being added to the PATH variable"
+             ]
     end
   end
 end
