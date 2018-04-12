@@ -38,5 +38,23 @@ else
   hl.say "#{Paint['Warning', 'orange']}: #{Dir.home}/.local/bin is not in $PATH,"
   installer.is_installed_but_no_bin
 end
+if @arch == 'arm-linux'
+  note = <<~NOTE
+  #{Paint['NOTE','orange']}: Termux, while being the only linux subsystem
+  for android that micro_install supports, is a bit wonky when it
+  comes to shebangs and Bash startup.
+    
+  1. If you haven't already, create a '.bashrc' in '~'
+  2. Add the next line into your bashrc after everything else
+     having to do with paths.
+
+     export PATH="#{Dir.home}/.local/bin:$PATH"
+
+  3. Restart your bash session, or re-source your .bashrc
+  
+      'source ~/.bashrc'
 
 
+  NOTE
+  hl.say note
+end
