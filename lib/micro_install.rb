@@ -38,8 +38,6 @@ module MicroInstall
             elsif bits == "32"
               @arch = 'linux32'
             end
-          when "linux-arm"
-            raise MicroInstall::LookupError.new 'ARM (mobile devices) are not supported'
           when "darwin"
             @arch = 'osx'
           when "freebsd"
@@ -60,8 +58,10 @@ module MicroInstall
             elsif bits == "32"
               @arch = 'netbsd32'
             end
-          else
-            raise MicroInstall::LookupError.new 'unable to determine your system'
+
+        end
+        if OS.config['host_cpu'] == 'arm' or OS.config['host_os'] =~ /linux-arm/ or OS.config['host_os'] =~ /arm-linux/
+          @arch = 'linux-arm'
         end
       rescue MicroInstall::LookupError => e
         hl.say "#{Paint['Error', 'red']}: #{e}"
