@@ -1,6 +1,12 @@
 # micro-install
 A ported version of https://getmic.ro to ruby to install [micro](https://zyedidia/micro)
 
+**Good News Everyone!**
+
+micro_install now supports linux-arm as android through 'Termux' installable from [here](https://play.google.com/store/apps/details?id=com.termux)
+
+[![Termux](https://iotaspencer.me/assets/images/google-play-badge.png)](https://play.google.com/store/apps/details?id=com.termux)
+
 **My Badges**
 
 [![Gitter](https://img.shields.io/gitter/room/mkmatter/micro-install.svg?style=for-the-badge)](https://gitter.im/mkmatter/micro-install?utm_source=share-link&utm_medium=link&utm_campaign=share-link)
