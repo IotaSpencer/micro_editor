@@ -47,7 +47,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
   
   spec.add_runtime_dependency 'thor', '~> 0.20'
-  spec.add_runtime_dependency 'highline', '~> 1.7'
+  spec.add_runtime_dependency 'highline', '>= 1.7', '< 3.0'
   spec.add_runtime_dependency 'os', '~> 1.0'
   spec.add_runtime_dependency 'paint', '~> 2.0.1'
   spec.add_runtime_dependency 'unirest', '~> 1.1'
