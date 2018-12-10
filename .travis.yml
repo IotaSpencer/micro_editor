@@ -1,19 +1,9 @@
 language: ruby
 bundler_args: --jobs=6 --retry=3 --standalone
-jobs:
-  include:
-    - stage: test Ruby2.3
-      rvm: 2.3.4
-      script:
-        - echo "Running tests against $(ruby -v) ..."
-        - bundle exec rake -t
-    - stage: test Ruby2.4
-      rvm: 2.4.1
-      script:
-        - echo "Running tests against $(ruby -v) ..."
-        - bundle exec rake -t
-    - stage: test Ruby2.5
-      rvm: 2.5.3
-      script:
-        - echo "Running tests against $(ruby -v) ..."
-        - bundle exec rake -t
+script:
+  - echo "Running tests against $(ruby -v) ..."
+  - bundle exec rake -t
+rvm:
+  - 2.3.4
+  - 2.4.1
+  - 2.5.3
