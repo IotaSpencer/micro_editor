@@ -1,23 +1,19 @@
-require "micro_install/version"
-require 'micro_install/spinner'
 require 'unirest'
 require 'os'
-require 'highline'
-require 'paint'
-module MicroInstall
-  class LookupError < Exception
-  end
+require 'rubygems/package'
+require 'open-uri'
+require 'zlib'
 
+module MicroEditor
   class Installer
     attr :arch
     def initialize(hl = HighLine.new($stdin, $stdout))
       @hl = hl
     end
-
     def latesttag(hl = @hl)
       begin
         hl.say "#{Paint["Getting Latest Tag", 'green']}"
-        MicroInstall.show_wait_spinner {
+        MicroEditor.show_wait_spinner {
           body = Unirest.get('https://api.github.com/repos/zyedidia/micro/releases/latest').body
           @tag = body['tag_name'].gsub(/^v/, '')
         }
@@ -64,9 +60,9 @@ module MicroInstall
           @arch = 'linux-arm'
         end
         if @arch.nil?
-          raise MicroInstall::LookupError.new 'Unable to determine your system'
+          raise MicroEditor::LookupError.new 'Unable to determine your system'
         end
-      rescue MicroInstall::LookupError => e
+      rescue MicroEditor::LookupError => e
         hl.say "#{Paint['Error', 'red']}: #{e}"
       end
 
@@ -79,7 +75,7 @@ module MicroInstall
 
     def download_micro_tar(hl = @hl)
       hl.say "Downloading... "
-      MicroInstall.show_wait_spinner {
+      MicroEditor.show_wait_spinner {
         File.open("micro-#{@tag}-#{@arch}.tar.gz", "wb") do |saved_file|
           # the following "open" is provided by open-uri
           open("#{@download_url}", "rb") do |read_file|
@@ -152,17 +148,49 @@ module MicroInstall
 
     def is_installed(hl = @hl)
       hl.say [
-                 "Micro has been installed to your ~/.local/bin/ directory. You can run it with:",
-                 "'micro'"
-             ].join
+          "Micro has been installed to your ~/.local/bin/ directory. You can run it with:",
+          "'micro'"
+      ].join
     end
 
     def is_installed_but_no_bin(hl = @hl)
       hl.say [
-                 "Micro is installed to ~/.local/bin/, but can't run,",
-                 "Please check your ~/.bashrc and/or ~/.profile and see",
-                 "if '~/.local/bin/' is being added to the PATH variable"
-             ]
+          "Micro is installed to ~/.local/bin/, but can't run,",
+          "Please check your ~/.bashrc and/or ~/.profile and see",
+          "if '~/.local/bin/' is being added to the PATH variable"
+      ]
+    end
+    def check_bin(hl = @hl)
+      paths    = []
+      path_env = ENV['PATH'].split(':').each do |path|
+        paths << path if path.include? 'bin'
+      end
+      if paths.include? Pathname(Dir.home).join('.local/bin').to_path
+        hl.say "Environment Variable 'PATH' already includes #{Dir.home}/.local/bin"
+        hl.say Paint["You're all set!", 'green']
+        installer.is_installed
+      else
+        hl.say "#{Paint['Warning', 'orange']}: #{Dir.home}/.local/bin is not in $PATH,"
+        installer.is_installed_but_no_bin
+      end
+      if installer.arch == 'linux-arm'
+        note = <<~NOTE
+            #{Paint['NOTE','orange']}: Termux, while being the only linux subsystem
+            for android that micro_install supports, is a bit wonky when it
+            comes to shebangs and Bash startup.
+    
+            1. If you haven't already, create a '.bashrc' in '~'
+            2. Add the next line into your bashrc after everything else
+            having to do with paths.
+
+               export PATH="#{Dir.home}/.local/bin:$PATH"
+
+            3. Restart your bash session, or re-source your .bashrc
+  
+              'source ~/.bashrc'
+        NOTE
+        hl.say note
+      end
     end
   end
 end

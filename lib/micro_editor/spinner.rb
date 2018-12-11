@@ -1,4 +1,4 @@
-module MicroInstall
+module MicroEditor
   module_function
   def show_wait_spinner(fps = 10)
     chars   = %w[| / - \\]
