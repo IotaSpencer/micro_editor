@@ -41,20 +41,20 @@ Gem::Specification.new do |spec|
   spec.files                 = `git ls-files -z`.split("\x0").reject do |f|
     f.match(%r{^(spec|test|features)/})
   end
-  spec.required_ruby_version = '~> 2'
+  spec.required_ruby_version = '~> 3'
   spec.bindir                = 'bin'
   spec.executables << 'micro-install'
   spec.require_paths = ['lib']
   
-  spec.add_runtime_dependency 'thor', '~> 0.20'
-  spec.add_runtime_dependency 'highline', '>= 1.7', '< 3.0'
-  spec.add_runtime_dependency 'os', '~> 1.0'
-  spec.add_runtime_dependency 'paint', '~> 2.0.1'
-  spec.add_runtime_dependency 'unirest', '~> 1.1'
-  spec.add_development_dependency 'bundler', '~> 1.16'
-  spec.add_development_dependency 'pry', '~> 0.11'
-  spec.add_development_dependency 'rake', '~> 12.3'
-  spec.add_development_dependency 'minitest-reporters', '~> 1.3.4'
+  spec.add_runtime_dependency 'thor', '~> 1.3.1'
+  spec.add_runtime_dependency 'highline', '~> 3.0.1'
+  spec.add_runtime_dependency 'os', '~> 1.1.4'
+  spec.add_runtime_dependency 'paint', '~> 2.3.0'
+  spec.add_runtime_dependency 'httparty', '~> 0.21.0'
+  spec.add_development_dependency 'bundler', '~> 2.3.5'
+  spec.add_development_dependency 'pry', '~> 0.14.2'
+  spec.add_development_dependency 'rake', '~> 13.1.0'
+  spec.add_development_dependency 'minitest-reporters', '~> 1.6.1'
 
   spec.post_install_message = <<-POSTINSTALL
   Thanks for installing micro_install!

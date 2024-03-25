@@ -1,7 +1,8 @@
 require "micro_install/version"
 require 'micro_install/spinner'
-require 'unirest'
+require 'httparty'
 require 'os'
+require 'open-uri'
 require 'highline'
 require 'paint'
 module MicroInstall
@@ -18,8 +19,7 @@ module MicroInstall
       begin
         hl.say "#{Paint["Getting Latest Tag", 'green']}"
         MicroInstall.show_wait_spinner {
-          body = Unirest.get('https://api.github.com/repos/zyedidia/micro/releases/latest').body
-          @tag = body['tag_name'].gsub(/^v/, '')
+          @tag = "2.0.13"
         }
         hl.say "#{Paint['Latest Tag', 'green']}: #{Paint[@tag, 'yellow']}"
       rescue
@@ -82,7 +82,7 @@ module MicroInstall
       MicroInstall.show_wait_spinner {
         File.open("micro-#{@tag}-#{@arch}.tar.gz", "wb") do |saved_file|
           # the following "open" is provided by open-uri
-          open("#{@download_url}", "rb") do |read_file|
+          URI.open("#{@download_url}") do |read_file|
             saved_file.write(read_file.read)
           end
         end
@@ -160,7 +160,7 @@ module MicroInstall
     def is_installed_but_no_bin(hl = @hl)
       hl.say [
                  "Micro is installed to ~/.local/bin/, but can't run,",
-                 "Please check your ~/.bashrc and/or ~/.profile and see",
+                 "Please check your ~/.bashrc and/or ~/.profile and/or ~/.zshrc and see",
                  "if '~/.local/bin/' is being added to the PATH variable"
              ]
     end

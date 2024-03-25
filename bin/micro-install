@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
-require 'unirest'
+require 'httparty'
 require 'os'
 require 'rubygems/package'
 require 'open-uri'
@@ -30,7 +30,7 @@ paths    = []
 path_env = ENV['PATH'].split(':').each do |path|
   paths << path if path.include? 'bin'
 end
-if paths.include? Pathname(Dir.home).join('.local/bin').to_path
+if paths.include? Pathname(Dir.home).join('.local/bin/').to_path or paths.include? Pathname(Dir.home).join('.local/bin').to_path
   hl.say "Environment Variable 'PATH' already includes #{Dir.home}/.local/bin"
   hl.say Paint["You're all set!", 'green']
   installer.is_installed
