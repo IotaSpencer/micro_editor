@@ -46,12 +46,12 @@ Gem::Specification.new do |spec|
   spec.executables << 'micro-install'
   spec.require_paths = ['lib']
   
-  spec.add_runtime_dependency 'thor', '~> 1.3.1'
-  spec.add_runtime_dependency 'highline', '~> 3.0.1'
+  spec.add_runtime_dependency 'thor', '~> 1.3.2'
+  spec.add_runtime_dependency 'highline', '~> 3.1.2'
   spec.add_runtime_dependency 'os', '~> 1.1.4'
   spec.add_runtime_dependency 'paint', '~> 2.3.0'
   spec.add_runtime_dependency 'httparty', '~> 0.21.0'
-  spec.add_development_dependency 'bundler', '~> 2.3.5'
+  spec.add_development_dependency 'bundler', '~> 2.6.9'
   spec.add_development_dependency 'pry', '~> 0.14.2'
   spec.add_development_dependency 'rake', '~> 13.1.0'
   spec.add_development_dependency 'minitest-reporters', '~> 1.6.1'
